@@ -16,8 +16,8 @@ import cv2
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
-PATH_TO_CKPT =  'C:\\Users\\SOHAM\\Desktop\\Detector\\image_module\\trainedModels\\ssd_mobilenet_RoadDamageDetector.pb' 
-PATH_TO_LABELS = 'C:\\Users\\SOHAM\\Desktop\\Detector\\image_module\\trainedModels\\crack_label_map.pbtxt'
+PATH_TO_CKPT =  'image_module/trainedModels/ssd_mobilenet_RoadDamageDetector.pb' 
+PATH_TO_LABELS = 'image_module/trainedModels/crack_label_map.pbtxt'
 NUM_CLASSES = 8
 
 detection_graph = tf.Graph()
