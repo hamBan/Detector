@@ -3,9 +3,9 @@ warnings.simplefilter(action='ignore')
 import cv2
 from PIL import Image
 from image_module import image_prediction as imp
-out = cv2.VideoWriter("output2.avi",cv2.VideoWriter_fourcc(*"MJPG"), 10,(640,480))
-cap = cv2.VideoCapture("testfootage2.mp4")
 
+out = cv2.VideoWriter("output.avi",cv2.VideoWriter_fourcc(*"MJPG"), 10,(640,480))
+cap = cv2.VideoCapture("footage.mp4")
 n = 0
 print("Begining Image Feed: ")
 while True:

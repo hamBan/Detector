@@ -5,8 +5,10 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 from .image_to_array import load_image_into_numpy_array as imar
-from .put_fuzzy_in_image import put_fuzzy_in_image as putfuzz
-from fuzzy import check_fuzzy
+#from .put_fuzzy_in_image import put_fuzzy_in_image as putfuzz
+from .put_morpho_in_image import put_morpho_in_image as putmorph
+#from fuzzy import check_fuzzy
+from morpho import check_morpho
 import numpy as np
 import tensorflow as tf
 from PIL import Image
@@ -14,8 +16,8 @@ import cv2
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
-PATH_TO_CKPT =  'C:\\Users\\SOHAM\\Desktop\\image_module\\trainedModels\\ssd_mobilenet_RoadDamageDetector.pb' 
-PATH_TO_LABELS = 'C:\\Users\\SOHAM\\Desktop\\image_module\\trainedModels\\crack_label_map.pbtxt'
+PATH_TO_CKPT =  'C:\\Users\\SOHAM\\Desktop\\Detector\\image_module\\trainedModels\\ssd_mobilenet_RoadDamageDetector.pb' 
+PATH_TO_LABELS = 'C:\\Users\\SOHAM\\Desktop\\Detector\\image_module\\trainedModels\\crack_label_map.pbtxt'
 NUM_CLASSES = 8
 
 detection_graph = tf.Graph()
@@ -43,18 +45,18 @@ def prediction(image):
             (boxes, scores, classes, num) = sess.run(
                 [detection_boxes, detection_scores, detection_classes, num_detections],
                 feed_dict={image_tensor: image_np_expanded})
-            fz = check_fuzzy(boxes,image_np,scores)
+            mp = check_morpho(boxes,image_np,scores)
             vis_util.visualize_boxes_and_labels_on_image_array(
                 image_np,
                 np.squeeze(boxes),
                 np.squeeze(classes).astype(np.int32),
                 np.squeeze(scores),
                 category_index,
-                min_score_thresh=0.3,
+                min_score_thresh=0.4,
                 use_normalized_coordinates=True,
                 line_thickness=8)
             image = Image.fromarray(image_np)
-            image = putfuzz(image,fz)
+            image = putmorph(image,mp)
             image_np = imar(image)
-            l = [fz, image_np]
+            l = [mp, image_np]
     return l
